@@ -8,6 +8,7 @@ module.exports = class extends Base {
 
   constructor(...arg) {
     super(...arg);
+    this.wechat = think.config('wechat');
   }
 
   // 通过code获取用户信息(access_token,openid 等)
@@ -16,8 +17,8 @@ module.exports = class extends Base {
       method: 'GET',
       url: api.auth2_access_token,
       data: {
-        appid: APP_ID,
-        secret: APP_SECRET,
+        appid: this.wechat.appId,
+        secret: this.wechat.appSecret,
         code,
         grant_type: 'authorization_code'
       }
@@ -29,8 +30,8 @@ module.exports = class extends Base {
   // 统一下单接口
   async unifiedOrder(openid, body, out_trade_no, total_fee, spbill_create_ip, notify_url) {
     let params = {
-      appid: APP_ID,
-      mch_id: MCH_ID,
+      appid: this.wechat.appId,
+      mch_id: this.wechat.mchId,
       nonce_str: Math.random().toString(36).substring(2),  //10位
       body,        // 商品简单描述
       // todo:订单编号规则
@@ -57,8 +58,8 @@ module.exports = class extends Base {
       url: api.get_access_token,
       data: {
         grant_type: 'client_credential',
-        appid: APP_ID,
-        secret: APP_SECRET,
+        appid: this.wechat.appId,
+        secret: this.wechat.appSecret,
       }
     });
     think.logger.info(ret);

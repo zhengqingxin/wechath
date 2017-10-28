@@ -3,47 +3,59 @@ module.exports = class extends think.Service {
   async createMenu(access_token, menus) {
     think.logger.info(`create menu with access_token: ${access_token} `);
     think.logger.info(menus);
-    const ret = await this.request({
+    const url = think.config('api.create_menus');
+    
+    const ret = await think.request({
       method: 'POST',
-      url: `${api.create_menus}?access_token=${access_token}`,
+      url: `${url}?access_token=${access_token}`,
       data: menus
     });
     think.logger.info(ret);
     return ret;
   }
 
-  // 创建默认菜单
-  async createSelfMenu(access_token, menus) {
-    think.logger.info(`create menu with access_token: ${access_token} `);
-    think.logger.info(menus);
-    const ret = await this.request({
+  
+  /**
+   * create default menu
+   * @returns 
+   */
+  async addDefaultMenu(menus) {
+    const access_token = think.config('accessToken');
+    const url = think.config('api.create_default_menu');
+    const ret = await think.request({
       method: 'POST',
-      url: `${api.create_self_menu}?access_token=${access_token}`,
+      url: `${url}?access_token=${access_token}`,
       data: menus
     });
-    think.logger.info(ret);
     return ret;
   }
 
-  // 获取菜单
-  async getMenu(access_token, menus) {
-    think.logger.info(`create menu with access_token: ${access_token} `);
-    think.logger.info(menus);
-    const ret = await this.request({
-      url: `${api.get_menus}?access_token=${access_token}`,
+  /**
+   * get menu
+   * @returns 
+   */
+  async getMenu() {
+    const access_token = think.config('accessToken');
+    const url = think.config('api.get_menus');
+    const ret = await think.request({
+      url,
+      data:{access_token}
     });
-    think.logger.info(ret);
     return ret;
   }
 
-  // 删除菜单
-  async deleteMenu(access_token, menus) {
-    think.logger.info(`create menu with access_token: ${access_token} `);
-    think.logger.info(menus);
-    const ret = await this.request({
-      url: `${api.delete_menus}?access_token=${access_token}`,
+  
+  /**
+   * delete menu
+   * @returns 
+   */
+  async deleteMenu() {
+    const access_token = think.config('accessToken');
+    const url = think.config('api.delete_menus');
+    const ret = await think.request({
+      url,
+      data:{access_token}
     });
-    think.logger.info(ret);
     return ret;
   }
 }

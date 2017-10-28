@@ -5,7 +5,7 @@ module.exports = {
     auth2_access_token:'https://api.weixin.qq.com/sns/oauth2/access_token',
     unified_order:'https://api.mch.weixin.qq.com/pay/unifiedorder',
     create_menus:'https://api.weixin.qq.com/cgi-bin/menu/addconditional',     
-    create_self_menu:'https://api.weixin.qq.com/cgi-bin/menu/create',
+    create_default_menu:'https://api.weixin.qq.com/cgi-bin/menu/create',
     get_menus:'https://api.weixin.qq.com/cgi-bin/menu/get',
     delete_menus:'https://api.weixin.qq.com/cgi-bin/menu/delete',
     get_access_token:'https://api.weixin.qq.com/cgi-bin/token',       

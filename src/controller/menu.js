@@ -3,36 +3,40 @@ const Base = require('./base.js');
 module.exports = class extends Base {
   constructor(...arg) {
     super(...arg);
-    this.wx = new wxService();
+    this.service = think.service('menu');
   }
 
-  __before(){
-    if(!this.isCli){
-      return this.fail();
-    }
-  }
+  // __before(){
+  //   if(!this.isCli){
+  //     return this.fail();
+  //   }
+  // }
 
   async getAction(){
-    let access_token = await this.mongo('access_token').getToken();
-    let ret = await this.wx.getMenu(access_token);
+    const ret = await this.service.getMenu();
     return this.success(ret);
   }
 
   async deleteAction(){
-    let access_token = await this.mongo('access_token').getToken();
-    let ret = await this.wx.deleteMenu(access_token);
+    const ret = await this.service.deleteMenu();
     return this.success(ret);
   }
 
-  async addAction(){
-    await this.deleteAction();
-    let access_token = await this.mongo('access_token').getToken();
-    let {self, special} = menus;
-    await this.wx.createSelfMenu(access_token, self);
+  async addDefaultAction(){
+    const menus = this.post();
+    console.log(menus);
+    const ret = await this.service.addDefaultMenu(menus);
+    return this.success(ret);    
+  }
+
+  async addConditionalAction(){
+    const access_token = think.config('accessToken');
+    const menus = require('../config/menus');
+    let {special} = menus;
     for (let i = 0; i < special.length; i++) {
-      let r = await this.wx.createMenu(access_token, special[i]);
+      let r = await this.service.createMenu(access_token, special[i]);
     }
-    let ret = await this.wx.getMenu(access_token);
+    let ret = await this.service.getMenu(access_token);
     return this.success(ret);
   }
 };
