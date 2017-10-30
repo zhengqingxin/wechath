@@ -12,31 +12,35 @@ module.exports = class extends Base {
   //   }
   // }
 
-  async getAction(){
+  async getAction() {
     const ret = await this.service.getMenu();
     return this.success(ret);
   }
 
-  async deleteAction(){
+  async deleteAction() {
     const ret = await this.service.deleteMenu();
     return this.success(ret);
   }
 
-  async addDefaultAction(){
+  async addDefaultAction() {
     const menus = this.post();
-    console.log(menus);
     const ret = await this.service.addDefaultMenu(menus);
-    return this.success(ret);    
+    return this.success(ret);
   }
 
-  async addConditionalAction(){
+  async addConditionalAction() {
     const access_token = think.config('accessToken');
-    const menus = require('../config/menus');
-    let {special} = menus;
-    for (let i = 0; i < special.length; i++) {
-      let r = await this.service.createMenu(access_token, special[i]);
+    // const menus = require('../config/menus');
+    // let {special} = menus;
+    const menus = this.ctx.post();
+    let ret = {};
+    if (Array.isArray(menus)) {
+      for (let i = 0; i < menus.length; i++) {
+        ret = await this.service.createMenu(access_token, menus[i]);
+      }
+    } else {
+      ret = await this.service.createMenu(access_token, menus);
     }
-    let ret = await this.service.getMenu(access_token);
     return this.success(ret);
   }
 };
