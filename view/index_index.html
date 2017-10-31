@@ -3,10 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Well-微信配置</title>
+  <title>Wechath-微信配置</title>
   <link href="//lib.baomitu.com/materialize/0.100.2/css/materialize.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="/static/css/index.css">
+
 </head>
 
 <body>
@@ -14,7 +15,7 @@
     <div id="signup">
       <div class="signup-screen">
         <div class="space-bot text-center">
-          <h1>Well-微信配置</h1>
+          <h1>Wechath-微信配置</h1>
           <div class="divider"></div>
         </div>
         <form class="form-register" method="post" name="register">
@@ -43,6 +44,8 @@
             <label>Token</label>
           </div>
         </form>
+        <p class="alert alert-danger" id="error"></p>
+        <p class="alert alert-success" id="success"></p>
         <div class="space-top text-center">
             <button class="waves-effect waves-light btn done" id="submit">
               <i class="material-icons left">done</i> 提交
@@ -51,11 +54,13 @@
       </div>
     </div>
   </div>
+  
 </body>
 <script src="//lib.baomitu.com/jquery/3.2.1/jquery.min.js"></script>
 <script src="//lib.baomitu.com/materialize/0.100.2/js/materialize.min.js"></script>
 <script>
   $('#submit').on('click',function(){
+    $('#error').hide();
     var data = {
       appId:$('#appId').val(),
       appSecret:$('#appSecret').val(),
@@ -67,10 +72,12 @@
     $.ajax({
       url:'/index/config',
       method:'post',
+      data:data,
       success(res){
-        console.log(res);
         if(res.errno !== 0){
-          alert('参数不能为空');
+          $('#error').html('配置失败，请检查参数是否正确').show();
+        }else{
+          $('#success').html('配置成功，系统凭证为' + res.data.token + '，请完善保管').show();          
         }
       }
     })

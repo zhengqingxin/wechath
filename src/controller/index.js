@@ -23,7 +23,7 @@ module.exports = class extends Base {
   async loginAction() {
     const token = this.post('token');
     const info = await this.mongo('wechat_info').getInfo();
-    if(info && info.wellToken === token){
+    if(info && info.sysToken === token){
       this.cookie('TOKEN',token);
       return this.redirect('/index/index');
     }
@@ -50,7 +50,7 @@ module.exports = class extends Base {
       await model.where(info).update(data);
     }else{
       const randomStr = generateString(32); 
-      data.wellToken = randomStr;
+      data.sysToken = randomStr;
       ret.token = randomStr;
       this.cookie('TOKEN',randomStr);
       await model.add(data);

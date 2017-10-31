@@ -42,10 +42,6 @@ h1 {
   margin-top: 10px;
 }
 
-.alert-danger {
-  text-align: center;
-}
-
 .signup-screen {
   padding: 20px;
   padding-bottom: 40px;
@@ -99,13 +95,23 @@ h1 {
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 2px;
-  border-color: #e85a71;
-  background-color: #e85a71;
   color: white;
-
+  display: none;
+  text-align: center;  
 }
 
+.alert-danger {
+  border-color: #e85a71;
+  background-color: #e85a71;
+}
+
+.alert-success{
+  border-color: #4e976c;
+  background-color:#4e976c;
+}
 .help-block {
   font-size: 12px;
   color: white
+}
+#error{
 }
