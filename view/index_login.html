@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Well-微信配置</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="/static/css/index.css">
+</head>
+
+<body>
+  <div class="container">
+    <div id="signup">
+      <div class="signup-screen">
+        <form class="form-register" method="post" name="register" action="/index/login">
+          <div class="input-field col s6">
+            <input name="token" type="text" class="validate">
+            <label>WellToken</label>
+          </div>
+          <div class="space-top text-center">
+            <button ng-disabled="form-register.$invalid" class="waves-effect waves-light btn done">
+              <i class="material-icons left">done</i> 登录
+            </button>
+            <!-- <button type="button" class="waves-effect waves-light btn cancel">
+              <i class="material-icons left">clear</i>Cancel
+            </button> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+</html>

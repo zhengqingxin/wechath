@@ -1,12 +1,32 @@
 const Base = require('./base.js');
-const helper = require('think-helper');
+const generateString = require('crypto-random-string');
+
 module.exports = class extends Base {
 
   constructor(...arg) {
     super(...arg);
   }
 
+  async __before(){
+    const conf = await this.mongo('wechat_info').select();
+    const token = this.cookie('TOKEN');
+    // 初始项目没有配置，跳过校验
+    if(!token && conf.length !== 0 && this.ctx.path !== '/index/login'){
+      return this.redirect('/index/login');
+    }
+  }
+
   indexAction() {
+    return this.display();
+  }
+
+  async loginAction() {
+    const token = this.post('token');
+    const info = await this.mongo('wechat_info').getInfo();
+    if(info && info.wellToken === token){
+      this.cookie('TOKEN',token);
+      return this.redirect('/index/index');
+    }
     return this.display();
   }
 
@@ -14,7 +34,7 @@ module.exports = class extends Base {
    * add/update wechat configuration 
    * @returns 
    */
-  async postAction() {
+  async configAction() {
     const model = this.mongo('wechat_info');
     const appId = this.post('appId');
     const appSecret = this.post('appSecret');
@@ -26,15 +46,16 @@ module.exports = class extends Base {
     const data = { appId,appSecret,payKey,mchId,deviceInfo,token,encodingAESKey};
     let info = await this.mongo('wechat_info').getInfo();
     let ret = {};
-    if(!helper.isEmpty(info)){
-      ret = await model.where(info).update(data);
+    if(!think.isEmpty(info)){
+      await model.where(info).update(data);
     }else{
-      ret = await model.add(data);
+      const randomStr = generateString(32); 
+      data.wellToken = randomStr;
+      ret.token = randomStr;
+      this.cookie('TOKEN',randomStr);
+      await model.add(data);
     }
-    if(ret){
-      return this.success(ret);      
-    }
-    return this.fail();
+    return this.success(ret);
   }
 
 }

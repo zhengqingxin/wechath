@@ -1,5 +1,5 @@
 module.exports = class extends think.Logic {
-  postAction() {
+  configAction() {
     this.allowMethods = 'post';
     this.rules = {
       appId: {
