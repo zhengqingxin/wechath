@@ -11,7 +11,7 @@ module.exports = class extends Base {
     const conf = await this.mongo('wechat_info').select();
     const token = this.cookie('TOKEN');
     // 初始项目没有配置，跳过校验
-    if(!token && conf.length !== 0 && this.ctx.path !== '/index/login'){
+    if(token !== conf.sysToken && conf.length !== 0 && this.ctx.path !== '/index/login'){
       return this.redirect('/index/login');
     }
   }
@@ -46,13 +46,13 @@ module.exports = class extends Base {
     const data = { appId,appSecret,payKey,mchId,deviceInfo,token,encodingAESKey};
     let info = await this.mongo('wechat_info').getInfo();
     let ret = {};
+    const randomStr = generateString(32);     
+    data.sysToken = randomStr;
+    ret.token = randomStr;
+    this.cookie('TOKEN',randomStr);
     if(!think.isEmpty(info)){
       await model.where(info).update(data);
     }else{
-      const randomStr = generateString(32); 
-      data.sysToken = randomStr;
-      ret.token = randomStr;
-      this.cookie('TOKEN',randomStr);
       await model.add(data);
     }
     return this.success(ret);
