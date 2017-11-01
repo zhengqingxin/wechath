@@ -10,10 +10,10 @@ module.exports = class extends Base {
   }
 
   __before() {
-    if (this.ctx.ip !== '::ffff:127.0.0.1') {
-      think.logger.error(`${this.ctx.ip} 尝试请求user`);
-      return this.fail('unknown host address')
-    }
+    // if (this.ctx.ip !== '::ffff:127.0.0.1') {
+    //   think.logger.error(`${this.ctx.ip} 尝试请求user`);
+    //   return this.fail('unknown host address')
+    // }
   }
 
 
@@ -42,15 +42,6 @@ module.exports = class extends Base {
       return this.success(ret)
     }
     return this.fail(ret.errmsg);
-  }
-
-  // 获取标签列表
-  async getTagsAction() {
-    let access_token = await this.mongo('access_token').getToken();
-    let ret = await this.wx.getTags(access_token);
-    if (ret) {
-      return this.success(ret)
-    }
   }
 
   // 获取用户基本信息

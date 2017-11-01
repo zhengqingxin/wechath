@@ -1,12 +1,7 @@
 const Base = require('./base.js');
 const generateString = require('crypto-random-string');
 
-module.exports = class extends Base {
-
-  constructor(...arg) {
-    super(...arg);
-  }
-
+module.exports = class {
   async __before(){
     const conf = await this.mongo('wechat_info').select();
     const token = this.cookie('TOKEN');

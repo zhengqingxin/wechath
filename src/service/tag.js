@@ -1,57 +1,61 @@
 module.exports = class extends think.Service {
-  // 创建自定义菜单
-  async createMenu(menus) {
-    const access_token = think.config('accessToken');    
-    const url = think.config('api.create_menus');
+
+  /**
+   * add tags
+   * @param {object} tags 
+   */
+  async addTag(data) {
+    const access_token = think.config('accessToken');
+    const url = think.config('api.create_tag');
     const ret = await think.request({
       method: 'POST',
       url: `${url}?access_token=${access_token}`,
-      data: menus
+      data
     });
     return ret;
   }
 
-  
   /**
-   * create default menu
-   * @returns 
+   * edit tags
+   * @param {object} tags 
    */
-  async addDefaultMenu(menus) {
+  async editTag(data) {
     const access_token = think.config('accessToken');
-    const url = think.config('api.create_default_menu');
+    const url = think.config('api.edit_tag');
     const ret = await think.request({
       method: 'POST',
       url: `${url}?access_token=${access_token}`,
-      data: menus
+      data
     });
     return ret;
   }
 
   /**
-   * get menu
+   * get tags
    * @returns 
    */
-  async getMenu() {
+  async getTag() {
     const access_token = think.config('accessToken');
-    const url = think.config('api.get_menus');
+    const url = think.config('api.get_tags');
     const ret = await think.request({
       url,
-      data:{access_token}
+      data: { access_token }
     });
     return ret;
   }
 
-  
+
   /**
-   * delete menu
+   * delete tags
    * @returns 
    */
-  async deleteMenu() {
+  async deleteTag(data) {
     const access_token = think.config('accessToken');
-    const url = think.config('api.delete_menus');
+    const url = think.config('api.delete_tag');
     const ret = await think.request({
-      url,
-      data:{access_token}
+      method: 'POST',
+      url: `${url}?access_token=${access_token}`,
+      data
     });
     return ret;
   }
