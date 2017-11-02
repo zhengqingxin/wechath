@@ -13,7 +13,7 @@ module.exports = class extends Base {
 
   // 通过code获取用户信息(access_token,openid 等)
   async getWebAccess(code) {
-    let ret = await this.request({
+    let ret = await think.request({
       method: 'GET',
       url: api.auth2_access_token,
       data: {
@@ -44,7 +44,7 @@ module.exports = class extends Base {
     };
     params.sign = global.generateSign(params);
     const data = js2xmlparser.parse('xml', params);
-    const ret = await this.request({
+    const ret = await think.request({
       method: 'POST',
       url: api.unified_order,
       data,
@@ -53,7 +53,7 @@ module.exports = class extends Base {
   }
 
   async getAccessToken() {
-    let ret = await this.request({
+    let ret = await think.request({
       method: 'GET',
       url: api.get_access_token,
       data: {
@@ -67,7 +67,7 @@ module.exports = class extends Base {
   }
 
   async getJsTicket(access_token) {
-    let ret = await this.request({
+    let ret = await think.request({
       method: 'GET',
       url: api.get_js_api_ticket,
       data: {
@@ -84,7 +84,7 @@ module.exports = class extends Base {
   async createMenu(access_token, menus) {
     think.logger.info(`create menu with access_token: ${access_token} `);
     think.logger.info(menus);
-    const ret = await this.request({
+    const ret = await think.request({
       method: 'POST',
       url: `${api.create_menus}?access_token=${access_token}`,
       data: menus
@@ -97,7 +97,7 @@ module.exports = class extends Base {
   async createSelfMenu(access_token, menus) {
     think.logger.info(`create menu with access_token: ${access_token} `);
     think.logger.info(menus);
-    const ret = await this.request({
+    const ret = await think.request({
       method: 'POST',
       url: `${api.create_self_menu}?access_token=${access_token}`,
       data: menus
@@ -110,7 +110,7 @@ module.exports = class extends Base {
   async getMenu(access_token, menus) {
     think.logger.info(`create menu with access_token: ${access_token} `);
     think.logger.info(menus);
-    const ret = await this.request({
+    const ret = await think.request({
       url: `${api.get_menus}?access_token=${access_token}`,
     });
     think.logger.info(ret);
@@ -121,7 +121,7 @@ module.exports = class extends Base {
   async deleteMenu(access_token, menus) {
     think.logger.info(`create menu with access_token: ${access_token} `);
     think.logger.info(menus);
-    const ret = await this.request({
+    const ret = await think.request({
       url: `${api.delete_menus}?access_token=${access_token}`,
     });
     think.logger.info(ret);
@@ -140,7 +140,7 @@ module.exports = class extends Base {
       openid_list,
       tagid,
     };
-    const ret = await this.request({
+    const ret = await think.request({
       method: 'POST',
       url: `${api.tag_user}?access_token=${access_token}`,
       data,
@@ -164,7 +164,7 @@ module.exports = class extends Base {
       openid_list,
       tagid,
     };
-    const ret = await this.request({
+    const ret = await think.request({
       method: 'POST',
       url: `${api.untag_user}?access_token=${access_token}`,
       data,
@@ -177,7 +177,7 @@ module.exports = class extends Base {
   }
 
   async getTags(access_token) {
-    const ret = await this.request({
+    const ret = await think.request({
       url: `${api.get_tags}?access_token=${access_token}`,
     });
     think.logger.info(ret);
@@ -185,7 +185,7 @@ module.exports = class extends Base {
   }
 
   async getUserInfo(openid, access_token) {
-    const ret = await this.request({
+    const ret = await think.request({
       url: `${api.get_user_info}?access_token=${access_token}`,
       data: {
         openid: openid,

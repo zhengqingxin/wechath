@@ -59,4 +59,20 @@ module.exports = class extends think.Service {
     });
     return ret;
   }
+
+  /**
+   * get tags
+   * @returns 
+   */
+  async getUser(data) {
+    const access_token = think.config('accessToken');
+    const url = think.config('api.get_tag_user');
+    const ret = await think.request({
+      method: 'POST',
+      url: `${url}?access_token=${access_token}`,
+      data
+    });
+    return ret;
+  }
+
 }
