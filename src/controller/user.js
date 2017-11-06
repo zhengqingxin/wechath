@@ -16,7 +16,16 @@ module.exports = class extends Base {
     // }
   }
 
+  
 
+
+
+
+
+
+
+
+  // #region TODO:
   //给用户打标签
   async tagUserAction() {
     const openid = this.get('openid');
@@ -29,7 +38,6 @@ module.exports = class extends Base {
     }
     return this.fail(ret.errmsg);
   }
-
 
   //取消用户标签
   async unTagUserAction() {
@@ -71,4 +79,5 @@ module.exports = class extends Base {
       return this.fail('invalid code')
     }
   }
+  // #endregion TODO:
 };

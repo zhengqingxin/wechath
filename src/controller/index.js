@@ -1,7 +1,7 @@
 const Base = require('./base.js');
 const generateString = require('crypto-random-string');
 
-module.exports = class {
+module.exports = class extends think.Controller{
   async __before(){
     const conf = await this.mongo('wechat_info').select();
     const token = this.cookie('TOKEN');
@@ -31,14 +31,7 @@ module.exports = class {
    */
   async configAction() {
     const model = this.mongo('wechat_info');
-    const appId = this.post('appId');
-    const appSecret = this.post('appSecret');
-    const payKey = this.post('payKey');
-    const mchId = this.post('mchId');
-    const deviceInfo = this.post('deviceInfo');
-    const token = this.post('token');
-    const encodingAESKey = this.post('encodingAESKey');
-    const data = { appId,appSecret,payKey,mchId,deviceInfo,token,encodingAESKey};
+    const data = this.post();
     let info = await this.mongo('wechat_info').getInfo();
     let ret = {};
     const randomStr = generateString(32);     
@@ -53,4 +46,9 @@ module.exports = class {
     return this.success(ret);
   }
 
+  async testAction(){
+    const data = this.post();
+    console.log(data);
+    return this.success(data);
+  }
 }

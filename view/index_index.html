@@ -43,6 +43,10 @@
             <input id="token" type="text" class="validate" required>
             <label>Token</label>
           </div>
+          <div class="input-field col s6">
+            <input id="oauth2Callback" type="text" class="validate" required>
+            <label>授权登录回调地址</label>
+          </div>
         </form>
         <p class="alert alert-danger" id="error"></p>
         <p class="alert alert-success" id="success"></p>
@@ -67,8 +71,10 @@
       encodingAESKey:$('#encodingAESKey').val(),
       mchId:$('#mchId').val(),
       payKey:$('#payKey').val(),
-      token:$('#token').val()
+      token:$('#token').val(),
+      oauth2Callback:$('#oauth2Callback').val()
     }
+    console.log(data);
     $.ajax({
       url:'/index/config',
       method:'post',

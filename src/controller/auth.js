@@ -36,15 +36,49 @@ module.exports = class extends Base {
     };
     const signature = global.generateSignature(data);
     const wechat = think.config('wechat');
-    if(think.isEmpty(wechat)){
-      return this.fail('wechat config is empty , please check your configuration');
-    }
     return this.redirect(`${url}?appId=${wechat.appId}&timestamp=${timestamp}&nonceStr=${noncestr}&signature=${signature}`);
   }
 
-  testAction(){
-    const config = think.config();
-    this.success(config);
+  /**
+   * 网页授权-只获取获取openId
+   * @param {string} state 回调地址
+   * @returns 
+   */
+  async getUserIdAction() {
+    const { code } = this.get();
+    const ret = await think.service('auth').getUserInfo(code);
+    const wechat = think.config('wechat');
+    if(wechat.oauth2Callback){
+      await think.request({
+        method:'POST',
+        url:wechat.oauth2Callback,
+        data:ret
+      });
+    }
+    return this.success();
   }
+
+  /**
+   * 网页授权-获取用户信息
+   * @returns 
+   */
+  async getUserInfoAction() {
+    const { state, code } = this.get();
+    const ret = await think.service('auth').getUserInfo(code, true);
+    const wechat = think.config('wechat');
+    if(wechat.oauth2Callback){
+      await think.request({
+        method:'POST',
+        url:wechat.oauth2Callback,
+        data:ret
+      });
+    }
+    return this.success();
+  }
+
+  // testAction(){
+  //   const config = think.config();
+  //   this.success(config);
+  // }
 
 }

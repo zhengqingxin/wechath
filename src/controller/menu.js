@@ -30,8 +30,6 @@ module.exports = class extends Base {
 
   async addConditionalAction() {
     const access_token = think.config('accessToken');
-    // const menus = require('../config/menus');
-    // let {special} = menus;
     const menus = this.ctx.post();
     let ret = {};
     if (Array.isArray(menus)) {

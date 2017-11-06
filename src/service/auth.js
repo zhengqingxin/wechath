@@ -52,6 +52,37 @@ module.exports = class extends think.Service {
     return ret;
   }
 
+  async getUserInfo(code,isGetDetail){
+    const wechat = think.config('wechat');
+    if(think.isEmpty(wechat)){
+      return;
+    }
+    let url = think.config('api.auth2_access_token');    
+    let ret = await think.request({
+      method: 'GET',
+      url,
+      data: {
+        appid: wechat.appId,
+        secret: wechat.appSecret,
+        code,
+        grant_type: 'authorization_code'
+      }
+    });
+    if(isGetDetail){
+      url = think.config('api.auth2_get_user_info');
+      ret = await think.request({
+        url,
+        data:{
+          access_token:ret.access_token,
+          openid:ret.openid,
+          lang:'zh_CN'
+        }
+      })
+    }
+    return ret;      
+  }
+
+
   /**
    * init
    */

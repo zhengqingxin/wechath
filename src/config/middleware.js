@@ -13,9 +13,9 @@ module.exports = [
     handle: 'resource',
     enable: true,
     options: {
-      root: path.join(think.ROOT_PATH, 'www'),
-      publicPath: /^\/(static|favicon\.ico)/
-    }
+        root: path.join(think.ROOT_PATH, 'www'),
+        publicPath: /^\/static|\.txt$/
+      }
   },
   {
     handle: 'trace',

@@ -3,6 +3,7 @@ module.exports = {
   port:8787,
   api:{
     auth2_access_token:'https://api.weixin.qq.com/sns/oauth2/access_token',
+    auth2_get_user_info:'https://api.weixin.qq.com/sns/userinfo',
     unified_order:'https://api.mch.weixin.qq.com/pay/unifiedorder',
     create_menus:'https://api.weixin.qq.com/cgi-bin/menu/addconditional',     
     create_default_menu:'https://api.weixin.qq.com/cgi-bin/menu/create',
