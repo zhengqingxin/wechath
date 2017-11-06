@@ -45,7 +45,11 @@
           </div>
           <div class="input-field col s6">
             <input id="oauth2Callback" type="text" class="validate" required>
-            <label>授权登录回调地址</label>
+            <label>授权登录回调接口地址</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="auth2Url" type="text" class="validate" required>
+            <label>授权登录回跳页面地址</label>
           </div>
         </form>
         <p class="alert alert-danger" id="error"></p>
@@ -72,7 +76,8 @@
       mchId:$('#mchId').val(),
       payKey:$('#payKey').val(),
       token:$('#token').val(),
-      oauth2Callback:$('#oauth2Callback').val()
+      oauth2Callback:$('#oauth2Callback').val(),
+      auth2Url:$('#auth2Url').val()
     }
     console.log(data);
     $.ajax({

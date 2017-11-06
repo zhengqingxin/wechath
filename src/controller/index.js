@@ -5,6 +5,7 @@ module.exports = class extends think.Controller{
   async __before(){
     const conf = await this.mongo('wechat_info').select();
     const token = this.cookie('TOKEN');
+    console.log(conf);
     // 初始项目没有配置，跳过校验
     if(token !== conf.sysToken && conf.length !== 0 && this.ctx.path !== '/index/login'){
       return this.redirect('/index/login');
@@ -43,6 +44,7 @@ module.exports = class extends think.Controller{
     }else{
       await model.add(data);
     }
+    think.config('wechat',ret);
     return this.success(ret);
   }
 

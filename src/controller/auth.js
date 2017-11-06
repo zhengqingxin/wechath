@@ -55,7 +55,7 @@ module.exports = class extends Base {
         data:ret
       });
     }
-    return this.success();
+    return this.redirect(wechat.auth2Url);
   }
 
   /**
@@ -66,6 +66,7 @@ module.exports = class extends Base {
     const { state, code } = this.get();
     const ret = await think.service('auth').getUserInfo(code, true);
     const wechat = think.config('wechat');
+    console.log(wechat.auth2Url);
     if(wechat.oauth2Callback){
       await think.request({
         method:'POST',
@@ -73,7 +74,7 @@ module.exports = class extends Base {
         data:ret
       });
     }
-    return this.success();
+    return this.redirect(wechat.auth2Url);
   }
 
   // testAction(){
