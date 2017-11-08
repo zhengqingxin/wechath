@@ -1,8 +1,8 @@
 {
   "apps": [{
-    "name": "wechat",
+    "name": "wechath",
     "script": "production.js",
-    "cwd": "/home/zhengqingxin/wechat",
+    "cwd": "/home/zhengqingxin/wechath",
     "exec_mode": "fork",
     "max_memory_restart": "1G",
     "autorestart": true,
