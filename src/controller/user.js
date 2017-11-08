@@ -16,13 +16,64 @@ module.exports = class extends Base {
     // }
   }
 
-  
+  /**
+   * get all user
+   * @returns 
+   */
+  async getAllAction() {
+    const next_openid = this.get('next_openid');
+    const ret = await think.service('common').get('get_all_user', { next_openid });
+    return this.success(ret);
+  }
 
+  /**
+   * get user info
+   * @returns 
+   */
+  async getDetailAction() {
+    const { openid } = this.get();
+    const ret = await think.service('common').get('get_user_info', { openid });
+    return this.success(ret);
+  }
 
+  /**
+   * remark user
+   * @returns 
+   */
+  async remarkUserAction() {
+    const data = this.post();
+    const ret = await think.service('common').post('remark_user', data);
+    return this.success(ret);
+  }
 
+  /**
+   * get black user list
+   * @returns 
+   */
+  async getBlackListAction() {
+    const ret = await think.service('common').post('get_black_user');
+    return this.success(ret);
+  }
 
+  /**
+   * batch black user
+   * @returns 
+   */
+  async blackUserAction() {
+    const data = this.post();
+    const ret = await think.service('common').post('black_user', data);
+    return this.success(ret);
+  }
 
-
+  /**
+   * batch unblack user
+   * @returns 
+   */
+  async unBlackUserAction() {
+    const data = this.post();
+    const ret = await think.service('common').post('un_black_user', data);
+    return this.success(ret);
+  }
 
 
   // #region TODO:

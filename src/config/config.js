@@ -21,7 +21,12 @@ module.exports = {
     get_tag_user:'https://api.weixin.qq.com/cgi-bin/user/tag/get',
     batch_tag_user:'https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging',
     batch_untag_user:'https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging',
-    
+    get_all_user:'https://api.weixin.qq.com/cgi-bin/user/get',
+    get_user_info:'https://api.weixin.qq.com/cgi-bin/user/info',
+    remark_user:'https://api.weixin.qq.com/cgi-bin/user/info/updateremark',
+    get_black_user:'https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist',
+    black_user:'https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist',
+    un_black_user:'https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist'
   }
 };
  
