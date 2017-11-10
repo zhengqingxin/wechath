@@ -9,6 +9,11 @@ module.exports = class extends Base {
     this.wx = new wxService();
   }
 
+  unifiedOrderAction(){
+    const data = this.post();
+  }
+
+
   // 支付
   async indexAction() {
     const openid = this.get('openid');
@@ -18,9 +23,6 @@ module.exports = class extends Base {
     const userIp = this.get('userIp');
     const notify_url = this.get('notify_url');
     const wechat = await this.mongo('wechat_info').getInfo();
-    if(helper.isEmpty(wechat || !info.appId)){
-      return this.fail('appId is empty , please check your wechat configuration');      
-    }
     // 1.通过统一下单接口获取prepay_id
     let uniOrder = await this.wx.unifiedOrder(openid, product, tradeNo, totalFee, userIp, notify_url);
     if (!uniOrder.prepay_id) {

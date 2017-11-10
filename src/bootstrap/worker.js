@@ -19,7 +19,7 @@ global.parseWxXml = async(xml)=> {
 
 // 生成sign
 global.generateSign = (params = {})=> {
-  const payKey = think.config('payKey');
+  const payKey = think.config('wechat').payKey;
   if(!payKey){
     return;
   }
