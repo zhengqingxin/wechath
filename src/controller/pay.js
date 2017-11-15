@@ -9,11 +9,6 @@ module.exports = class extends Base {
     this.wx = new wxService();
   }
 
-  unifiedOrderAction(){
-    const data = this.post();
-  }
-
-
   // 支付
   async indexAction() {
     const openid = this.get('openid');

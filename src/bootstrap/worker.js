@@ -34,6 +34,17 @@ global.generateSign = (params = {})=> {
   // 3.md5加密后转成大写
   return md5(paramStr).toUpperCase();
 };
+
+// TODO:解析xml payload
+global.parseXmlPayload = (json)=>{
+  const xml = json.xml || {};
+  let ret = {};
+  for(let key in xml){
+    ret[key] = xml[key][0]
+  }
+  return ret;
+}
+
 // 生成signature
 global.generateSignature = (params = {})=> {
   // 1.根据请求参数的 key 按照 ASCII 排序拼成 URL 字符串
